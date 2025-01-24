@@ -154,10 +154,12 @@ let subBtn = document.getElementById('sub-btn');
 let mulBtn = document.getElementById('mul-btn');
 let DivBtn = document.getElementById('div-btn');
 
+// Gets Input from input field number
 function getUserNumberInput(){
     return parseInt(userInput.value)
 }
 
+// Generates and writes calculation log
 function createAndWriteOutput(operator, resultBeforeCalc, calcNumber){
     calcDescription = `${resultBeforeCalc} ${operator} ${calcNumber}`
     if(isNaN(currentResult)){ currentResult = 0 }
@@ -165,6 +167,7 @@ function createAndWriteOutput(operator, resultBeforeCalc, calcNumber){
     resultbox.textContent = `Result : ${currentResult}`
 }
 
+// Add Numbers
 function add(){
     const enteredNumber = getUserNumberInput();
     const initialResult = currentResult;
@@ -172,6 +175,7 @@ function add(){
     createAndWriteOutput('+', initialResult, enteredNumber);
 }
 
+// Substract Numbers
 function subtract(){
     const enteredNumber = getUserNumberInput();
     const initialResult = currentResult;
@@ -179,6 +183,7 @@ function subtract(){
     createAndWriteOutput('-', initialResult, enteredNumber);
 }
 
+// Multiply Numbers
 function multiply(){
     const enteredNumber = getUserNumberInput();
     const initialResult = currentResult;
@@ -186,6 +191,7 @@ function multiply(){
     createAndWriteOutput('*', initialResult, enteredNumber);
 }
 
+// Divide Numbers
 function divide(){
     const enteredNumber = getUserNumberInput();
     const initialResult = currentResult;
@@ -193,6 +199,7 @@ function divide(){
     createAndWriteOutput('/', initialResult, enteredNumber);
 }
 
+// Event Listeners on every button
 addBtn.addEventListener('click',add); 
 subBtn.addEventListener('click',subtract); 
 mulBtn.addEventListener('click',multiply); 
