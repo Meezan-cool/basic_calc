@@ -146,6 +146,7 @@
 // 41 - Working with Code Comments
 const defaultResult = 0;
 let currentResult = defaultResult;
+let logEnteries = [];
 // DOM
 let resultbox = document.querySelector('.result_box'); 
 let userInput = document.getElementById('user-input');
@@ -153,6 +154,9 @@ let addBtn = document.getElementById('add-btn');
 let subBtn = document.getElementById('sub-btn');
 let mulBtn = document.getElementById('mul-btn');
 let DivBtn = document.getElementById('div-btn');
+let calcDescrip = document.querySelector('.calc_descript');
+
+
 
 // Gets Input from input field number
 function getUserNumberInput(){
@@ -163,40 +167,67 @@ function getUserNumberInput(){
 function createAndWriteOutput(operator, resultBeforeCalc, calcNumber){
     calcDescription = `${resultBeforeCalc} ${operator} ${calcNumber}`
     if(isNaN(currentResult)){ currentResult = 0 }
-    console.log(currentResult, calcDescription)
     resultbox.textContent = `Result : ${currentResult}`
+}
+
+function writeToLog(operationIdentifier, prevResult, operationNumber, newResult){
+    const logEntry = {
+        operation: operationIdentifier,
+        prevResult: prevResult,
+        number: operationNumber,
+        result: newResult
+    }
+    logEnteries.push(logEntry);
+// Construct the calculation string
+calcDescrip.textContent = logEnteries
+.map((item,index) => {
+    const operator = item.operation === 'ADD' && index !== 0? '+': 
+                     item.operation === 'SUBTRACT' ? '-' : 
+                     item.operation === 'MULTIPLY' ? '*' : 
+                     item.operation === 'DIVIDE' ? '/' : '';
+    return `${operator} ${item.number}`; })
+.join(' ')
+.trim();
 }
 
 // Add Numbers
 function add(){
     const enteredNumber = getUserNumberInput();
     const initialResult = currentResult;
-    currentResult = currentResult + enteredNumber;
+    currentResult += enteredNumber;
     createAndWriteOutput('+', initialResult, enteredNumber);
+    writeToLog('ADD', initialResult, enteredNumber, currentResult) 
+    console.log(logEnteries)
 }
 
 // Substract Numbers
 function subtract(){
     const enteredNumber = getUserNumberInput();
     const initialResult = currentResult;
-    currentResult = currentResult - enteredNumber;
+    currentResult -= enteredNumber;
     createAndWriteOutput('-', initialResult, enteredNumber);
+    writeToLog('SUBTRACT', initialResult, enteredNumber, currentResult)
+    console.log(logEnteries)
 }
 
 // Multiply Numbers
 function multiply(){
     const enteredNumber = getUserNumberInput();
     const initialResult = currentResult;
-    currentResult = currentResult * enteredNumber;
+    currentResult *= enteredNumber;
     createAndWriteOutput('*', initialResult, enteredNumber);
+    writeToLog('MULTIPLY', initialResult, enteredNumber, currentResult)
+    console.log(logEnteries)
 }
 
 // Divide Numbers
 function divide(){
     const enteredNumber = getUserNumberInput();
     const initialResult = currentResult;
-    currentResult = currentResult / enteredNumber;
+    currentResult /= enteredNumber;
     createAndWriteOutput('/', initialResult, enteredNumber);
+    writeToLog('DIVIDE', initialResult, enteredNumber, currentResult)
+    console.log(logEnteries)
 }
 
 // Event Listeners on every button
@@ -204,3 +235,26 @@ addBtn.addEventListener('click',add);
 subBtn.addEventListener('click',subtract); 
 mulBtn.addEventListener('click',multiply); 
 DivBtn.addEventListener('click',divide); 
+
+// More Operators
+// -- Increment 
+// ++ Decrement 
+// ** Exponentiation
+// += Addition Assignment 
+// -= Substraction Assignment 
+// *= Multiplication Assignment 
+// /= Division Assignment 
+
+// More Core Data Types 
+// Booleans - true / false - Important for conditional code and situations where you only have 2 options
+// Objects - {name: 'Max', age: 31} / Key: Value (Pair) - Important for grouped/ related data, helps you with organizing data
+// Arrays - [1, 3, 5] - Important for list data, unknown amounts of data 
+
+
+// 49 undefined / null / NaN
+
+// undefined -> Default value of uninitialized variables / you shouldn't assign undefined as a value manually
+
+// null -> Never assumed by default / you can assign this is a value if you want to "reset" / "clear" a variable
+
+// Nan -> Technically, it's of type number and can therefore be used in calculations / it yields a new it's the result of invalid calculations (e.g. 3 * 'hi') 
